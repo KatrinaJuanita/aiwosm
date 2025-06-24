@@ -1,0 +1,160 @@
+# cSpell:words WOSM dylib wosm ehthumbs cursorindexingignore ruoyi specstory agentdesk
+# WOSM Project .gitignore
+
+# ====================
+# Go Backend
+# ====================
+# Go executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go modules
+go.work
+go.work.sum
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+logs/
+backend/logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Binary files
+backend/main
+backend/wosm
+backend/wosm.exe
+
+# ====================
+# Vue.js Frontend  
+# ====================
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production builds
+dist/
+build/
+
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ====================
+# Database & Cache
+# ====================
+# Redis dump files
+dump.rdb
+redis/dump.rdb
+
+# SQL Server files
+*.mdf
+*.ldf
+*.bak
+
+# Database dumps (keep structure, ignore data)
+# *_data.sql
+
+# ====================
+# System & OS
+# ====================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.nfs*
+
+# ====================
+# Development Tools
+# ====================
+# Cursor AI
+.cursor/
+.cursorindexingignore
+
+# Git
+*.orig
+
+# Coverage reports
+coverage/
+*.cover
+*.py,cover
+
+# ====================
+# Upload & Runtime
+# ====================
+# File uploads
+uploads/
+uploadPath/
+backend/uploads/
+
+# Temporary runtime files
+*.pid
+*.lock
+
+# ====================
+# Build & Package
+# ====================
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# ====================
+# Java (RuoYi)
+# ====================
+ruoyi-java/target/
+ruoyi-java/**/target/
+*.class
+*.jar
+!ruoyi-java/lib/*.jar
+
+# ====================
+# Memory & Specs
+# ====================
+# Memory bank files (project-specific)
+memory-bank/
+.specstory/
+
+# ====================
+# Configuration
+# ====================
+# Sensitive config files
+backend/configs/config.prod.yaml
+backend/configs/config.local.yaml
+mcp-servers.json
+agentdesk-mcp-config.json
+
+# ====================
+# Documentation
+# ====================
+# Temporary docs
+*.draft.md
+*.temp.md 

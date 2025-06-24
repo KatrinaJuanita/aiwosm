@@ -1,0 +1,98 @@
+# WOSM Go Backend 统一配置文件
+# 支持环境变量覆盖，适用于开发、测试、生产环境
+# 注意: 验证码配置优先使用数据库中的 sys_config 表设置
+
+server:
+  port: 8080
+  name: "wosm"
+
+database:
+  driver: "sqlserver"
+  host: "localhost"
+  port: 1433
+  database: "wosm"
+  username: "sa"
+  password: ""
+  charset: "utf8"
+  max_idle_conns: 20      # 增加空闲连接数
+  max_open_conns: 200     # 增加最大连接数
+  conn_max_lifetime: 3600  # 连接最大生存时间（秒）
+  conn_max_idle_time: 1800  # 连接最大空闲时间（秒）
+  ping_timeout: 30  # 连接测试超时时间（秒）
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  database: 0
+  pool_size: 20     # 增加连接池大小
+  dial_timeout: 10  # 连接超时时间（秒），对应Java后端的timeout配置
+  read_timeout: 30  # 读取超时时间（秒）
+  write_timeout: 30  # 写入超时时间（秒）
+
+jwt:
+  secret: "wosm-secret-key"
+  expire_time: 1800  # 30分钟，与Java后端保持一致
+  refresh_time: 604800  # 7天
+
+# 用户配置 对应Java后端的user配置
+user:
+  password:
+    # 密码最大错误次数 对应Java后端的maxRetryCount
+    max_retry_count: 5
+    # 密码锁定时间（默认10分钟） 对应Java后端的lockTime
+    lock_time: 10
+
+log:
+  level: "debug"  # 开发环境使用debug级别，生产环境建议使用warn
+  file_path: "logs/wosm.log"
+  max_size: 100
+  max_age: 30
+  max_backups: 10
+
+captcha:
+  enabled: true   # 验证码启用状态 (true=启用, false=禁用) - 仅作为降级配置，优先使用数据库配置
+  length: 4       # 验证码长度
+  width: 160      # 验证码图片宽度
+  height: 60      # 验证码图片高度
+  expire_time: 300  # 验证码过期时间（秒）
+
+# 文件上传配置 对应Java后端的ruoyi.profile配置
+file:
+  # 文件上传路径（相对路径，跨平台兼容）
+  upload_path: "./uploads"
+  # 资源访问路径前缀
+  resource_prefix: "/profile"
+  # 默认最大文件大小 50MB
+  max_size: 52428800
+  # 默认文件名最大长度
+  max_name_length: 100
+  # 允许的文件扩展名
+  allowed_extensions:
+    # 图片文件
+    - "bmp"
+    - "gif"
+    - "jpg"
+    - "jpeg"
+    - "png"
+    # 文档文件
+    - "doc"
+    - "docx"
+    - "xls"
+    - "xlsx"
+    - "ppt"
+    - "pptx"
+    - "html"
+    - "htm"
+    - "txt"
+    - "pdf"
+
+# 系统配置优先级说明
+# 1. 数据库配置 (sys_config表) - 最高优先级
+# 2. 环境变量 - 中等优先级
+# 3. 配置文件 - 最低优先级（降级配置）
+#
+# 验证码配置说明:
+# - 验证码启用状态优先从数据库 sys_config 表的 sys.account.captchaEnabled 读取
+# - 如果数据库读取失败，则使用本配置文件中的 captcha.enabled 作为降级配置
+# - 其他验证码参数（长度、尺寸等）仍使用配置文件中的设置
